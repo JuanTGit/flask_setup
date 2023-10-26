@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>This is {{ name }}'s' index.</h1>
+    {% for c in count %}
+    <ul>
+        {% if c != 5 %}
+        <li>{{ c }}</li>
+        {% endif %}
+    </ul>
+    {% endfor %}
+{% endblock %}
