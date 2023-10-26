@@ -6,3 +6,7 @@ def index():
     my_name='Juan'
     count=[1, 2, 3, 4, 5, 6]
     return render_template('index.html', name=my_name, count=count)
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
