@@ -3,35 +3,36 @@
 
 {% block content %}
     <h1 class="d-flex justify-content-center">Register Here!</h1>
-    <form action="">
+    <form action="" method="post">
+        {{ form.csrf_token }}
         <div class="form-group d-flex justify-content-center flex-wrap">
             <div class="col-lg-12 d-flex justify-content-center mb-3">
-                <fieldset class="col-lg-4">
+                <fieldset>
                     {{ form.username.label }}
-                    {{ form.username(class='form-control', placeholder='Username') }}
+                    {{ form.username(class='form-control w-100', placeholder='Username') }}
                 </fieldset>
             </div>
             <div class="col-lg-12 d-flex justify-content-center mb-3">
-                <fieldset class="col-lg-4">
+                <fieldset>
                     {{ form.email.label }}
                     {{ form.email(class='form-control', placeholder='Email') }}
                 </fieldset>
             </div>
             <div class="col-lg-12 d-flex justify-content-center mb-3">
-                <fieldset class="col-lg-4">
+                <fieldset>
                     {{ form.password.label }}
                     {{ form.password(class='form-control', placeholder='Password') }}
                 </fieldset>
             </div>
             <div class="col-lg-12 d-flex justify-content-center mb-3">
-                <fieldset class="col-lg-4">
+                <fieldset>
                     {{ form.confirm_pass.label }}
                     {{ form.confirm_pass(class='form-control', placeholder='Confirm Password') }}
                 </fieldset>
             </div>
         </div>
         <div class="col-lg-12 d-flex justify-content-center">
-            {{ form.submit(class='btn btn-outline-success') }}
+            {{ form.submit(class='btn btn-outline-success w-25') }}
         </div>
     </form>
 {% endblock %}
