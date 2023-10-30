@@ -4,6 +4,7 @@ from project import app
 from flask import render_template, redirect, url_for
 # Forms for users to input data
 from project.forms import RegisterForm
+from project.models import User
 
 @app.route('/')
 def index():
@@ -17,9 +18,25 @@ def index():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        # Get the data from the form
         username = form.username.data
         email = form.email.data
         password = form.password.data
+
+        # Check if user exists
+        user_exists = User.query.filter((User.username == username)|(User.email == email)).all()
+        if user_exists:
+            return redirect(url_for('register'))
+
+        # Create a new user instance using form data
+        User(username=username, email=email, password=password)
+
+
+        # Add and commit to the database
+        # Added to Users class on creation
+            # db.session.add(new_user)
+            # db.session.commit()
+
         return redirect(url_for('index'))
     return render_template('register.html', form=form)
 
