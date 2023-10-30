@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>This is {{ name }}'s' index.</h1>
-    {% for c in count %}
-    <ul>
-        {% if c != 5 %}
-        <li>{{ c }}</li>
-        {% endif %}
-    </ul>
-    {% endfor %}
+{% if current_user.is_authenticated %}
+    <h1>Welcome back! {{ current_user.username.capitalize() }}</h1>
+{% else %}
+    <h1>Please Register or Login!</h1>
+{% endif %}
 {% endblock %}

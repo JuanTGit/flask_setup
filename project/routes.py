@@ -5,14 +5,12 @@ from flask import render_template, redirect, url_for
 # Forms for users to input data
 from project.forms import RegisterForm, LoginForm
 from project.models import User
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 @app.route('/')
 def index():
-    my_name='Juan'
-    count=[1, 2, 3, 4, 5, 6]
     # function takes in a template as first arg, and **kwargs
-    return render_template('index.html', name=my_name, count=count)
+    return render_template('index.html')
 
 # Get for user to recieve data from server, and post for user to submit data from server
 @app.route('/register', methods=['GET', 'POST'])
@@ -58,3 +56,8 @@ def login():
         
 
     return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
