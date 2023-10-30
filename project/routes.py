@@ -5,7 +5,7 @@ from flask import render_template, redirect, url_for
 # Forms for users to input data
 from project.forms import RegisterForm, LoginForm
 from project.models import User
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 
 @app.route('/')
 def index():

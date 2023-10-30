@@ -18,6 +18,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
+login.login_view = 'login'
 
 # We import routes here because It has to be deployed after our flask app
 from . import routes, models
