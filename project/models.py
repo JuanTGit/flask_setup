@@ -56,5 +56,8 @@ https://docs.sqlalchemy.org/en/14/core/metadata.html?highlight=endswith#sqlalche
             User.query.order_by(User.username).filter(User.username.contains('b')).all()
         How to do an 'or'
             User.query.filter((User.username.contains('b')) | (User.id == 3)).all()
+        How to use 'like'
+            users_with_gmail = User.query.filter(User.email.like('%@gmail.com%')).all()
+
             
 """
