@@ -27,6 +27,29 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
     
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    price = db.Coulm(db.Numeric(5, 2), nullable=False)
+    image_url = db.Column(db.String(255))
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=False)
+
+    def __repr__(self):
+        return f"<Product|{self.name}>"
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    color = db.Column(db.String(20), nullable=False)
+    products = db.relationship("Product", backref="category")
+
+    def __repr__(self):
+        return f"<Category|{self.name}>"
+
+
+
+    
 """
 CREATE USER
 flask shell
