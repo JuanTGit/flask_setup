@@ -4,13 +4,14 @@ from project import app
 from flask import render_template, redirect, url_for, flash
 # Forms for users to input data
 from project.forms import RegisterForm, LoginForm
-from project.models import User
+from project.models import User, Product
 from flask_login import login_user, logout_user, login_required
 
 @app.route('/')
 def index():
     # function takes in a template as first arg, and **kwargs
-    return render_template('index.html')
+    products = Product.query.all()
+    return render_template('index.html', products=products)
 
 # Get for user to recieve data from server, and post for user to submit data from server
 @app.route('/register', methods=['GET', 'POST'])

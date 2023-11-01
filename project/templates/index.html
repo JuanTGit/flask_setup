@@ -2,8 +2,45 @@
 
 {% block content %}
 {% if current_user.is_authenticated %}
-    <h1>Welcome back! {{ current_user.username.capitalize() }}</h1>
+    <h1 class="text-center mt-3">Welcome back! {{ current_user.username.capitalize() }}</h1>
 {% else %}
-    <h1>Please Register or Login!</h1>
+    <h1 class="text-center mt-3">Please Register or Login!</h1>
 {% endif %}
+<!-- Playing Cards -->
+<h1 class="text-center m-5">Card Games</h1>
+<div class="row">
+    {% for product in products %}
+    <div class="col-12 col-sm-6 col-md-4">
+        {% if product.category_id == 1 %}
+        <div class="card">
+            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">{{ product.price }}</p>
+              <a href="#" class="btn btn-primary">Add to cart</a>
+            </div>
+          </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+<!-- Board Games -->
+<h1 class="text-center m-5">Board Games</h1>
+<div class="row">
+    {% for product in products %}
+    <div class="col-12 col-sm-6 col-md-4">
+        {% if product.category_id == 2 %}
+        <div class="card">
+            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">{{ product.price }}</p>
+              <a href="#" class="btn btn-primary">Add to cart</a>
+            </div>
+          </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}
