@@ -11,7 +11,9 @@ from flask_login import login_user, logout_user, login_required
 def index():
     # function takes in a template as first arg, and **kwargs
     products = Product.query.all()
-    return render_template('index.html', products=products)
+    # Sort our products by id
+    sorted_products = sorted(products, key=lambda x: x.id)
+    return render_template('index.html', products=sorted_products)
 
 # Get for user to recieve data from server, and post for user to submit data from server
 @app.route('/register', methods=['GET', 'POST'])
@@ -85,4 +87,18 @@ def product_edit(prod_id):
     form = ProductUpdate()
     form.category.choices = [(c.id, c.name) for c in Category.query.all()]
     product = Product.query.get_or_404(prod_id)
+    if form.validate_on_submit():
+        name = form.name.data
+        image_url = form.image_url.data
+        price = form.price.data
+        category = form.category.data
+
+        product.name = name
+        product.image_url = image_url
+        product.price = price
+        product.category_id = category
+
+        product.save()
+
+
     return render_template('edit_product.html', product=product, form=form)

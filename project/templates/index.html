@@ -9,40 +9,39 @@
 <!-- Playing Cards -->
 <h1 class="text-center m-5">Card Games</h1>
 <div class="row">
-    {% for product in products %}
-    <div class="col-12 col-sm-6 col-md-4">
-        {% if product.category_id == 1 %}
-        <div class="card">
-            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
-            <!-- style="width: 300px; height: 337px; object-fit: cover;" -->
-            <div class="card-body">
-              <h5 class="card-title">{{ product.name }}</h5>
-              <p class="card-text">${{ product.price }}</p>
-              <a href="{{ url_for('product_info', prod_id=product.id) }}" class="btn btn-primary">More Info</a>
+{% for product in products %}
+    {% if product.category_id == 1 %}
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card">
+                <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">${{ product.price }}</p>
+                <a href="{{ url_for('product_info', prod_id=product.id) }}" class="btn btn-primary">More Info</a>
+                </div>
             </div>
-          </div>
-        {% endif %}
-    </div>
-    {% endfor %}
+        </div>
+    {% endif %}
+{% endfor %}
 </div>
 <!-- Board Games -->
 <!-- To my love Sherley <3 -->
 <h1 class="text-center m-5">Board Games</h1>
 <div class="row">
-    {% for product in products %}
-    <div class="col-12 col-sm-6 col-md-4">
-        {% if product.category_id == 2 %}
-        <div class="card">
-            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
-            <div class="card-body">
-              <h5 class="card-title">{{ product.name }}</h5>
-              <p class="card-text">${{ product.price }}</p>
-              <a href="{{ url_for('product_info', prod_id=product.id) }}" class="btn btn-primary">More Info</a>
+{% for product in products %}
+    {% if product.category_id == 2 %}
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card">
+                <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">${{ product.price }}</p>
+                <a href="{{ url_for('product_info', prod_id=product.id) }}" class="btn btn-primary">More Info</a>
+                </div>
             </div>
-          </div>
-        {% endif %}
-    </div>
-    {% endfor %}
+        </div>
+    {% endif %}
+{% endfor %}
 </div>
 
 {% endblock %}
