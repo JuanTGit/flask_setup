@@ -3,8 +3,8 @@ from project import app
 # Used for loading in our templates from html files
 from flask import render_template, redirect, url_for, flash
 # Forms for users to input data
-from project.forms import RegisterForm, LoginForm
-from project.models import User, Product
+from project.forms import RegisterForm, LoginForm, ProductUpdate
+from project.models import User, Product, Category
 from flask_login import login_user, logout_user, login_required
 
 @app.route('/')
@@ -70,12 +70,19 @@ def logout():
     flash('You have succesfully logged out.', 'dark')
     return redirect(url_for('index'))
 
-@app.route('/products')
+@app.route('/product')
 @login_required
-def products():
+def product():
     return 'Hello!'
 
 @app.route('/product/<prod_id>')
 def product_info(prod_id):
     product = Product.query.get_or_404(prod_id)
     return render_template('product.html', product=product)
+
+@app.route('/product/<prod_id>/edit', methods=['GET', 'POST'])
+def product_edit(prod_id):
+    form = ProductUpdate()
+    form.category.choices = [(c.id, c.name) for c in Category.query.all()]
+    product = Product.query.get_or_404(prod_id)
+    return render_template('edit_product.html', product=product, form=form)

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="d-flex justify-content-center m-5">Update Product</h1>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+            <!-- style="width: 300px; height: 337px; object-fit: cover;" -->
+            <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">${{ product.price }}</p>
+            <p class="card-text">{{ product.category.name }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <form action="" method="post">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                <div class="col-12 mb-3">
+                    <fieldset class="w-75">
+                        {{ form.name.label }}
+                        {{ form.name(class='form-control', placeholder='Product name', value=product.name) }}
+                    </fieldset>
+                </div>
+                <div class="col-12 mb-3">
+                    <fieldset class="w-75">
+                        {{ form.image_url.label }}
+                        {{ form.image_url(class='form-control', placeholder='image_url', value=product.image_url) }}
+                    </fieldset>
+                </div>
+                <div class="col-12 mb-3">
+                    <fieldset class="w-75">
+                        {{ form.price.label }}
+                        {{ form.price(class='form-control', placeholder='Price', value=product.price) }}
+                    </fieldset>
+                </div>
+                <div class="col-12 mb-3">
+                    <fieldset class="w-75">
+                        {{ form.category.label }}
+                        <select class="form-control" name="category">
+                            {% for category in form.category.choices %}
+                                {% if category[0] == product.category_id %}
+                                    <option value="{{ category[0] }}" selected>{{ category[1] }}</option>
+                                {% else %}
+                                    <option value="{{ category[0] }}">{{ category[1] }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="col-12">
+                    {{ form.submit(class='btn btn-outline-primary w-75') }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

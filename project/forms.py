@@ -1,6 +1,6 @@
 # The forms is for our front-end for users to submit.
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Email, EqualTo
 
 class RegisterForm(FlaskForm):
@@ -14,3 +14,10 @@ class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+class ProductUpdate(FlaskForm):
+    name = StringField('Product Name', validators=[DataRequired()])
+    image_url = StringField('Image URL', validators=[DataRequired()])
+    price = StringField('Price', validators=[DataRequired()])
+    category = SelectField('Category')
+    submit = SubmitField('Update Product')
