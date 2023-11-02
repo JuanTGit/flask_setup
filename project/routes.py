@@ -74,3 +74,8 @@ def logout():
 @login_required
 def products():
     return 'Hello!'
+
+@app.route('/product/<prod_id>')
+def product_info(prod_id):
+    product = Product.query.get_or_404(prod_id)
+    return render_template('product.html', product=product)
