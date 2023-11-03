@@ -40,6 +40,10 @@ class Product(db.Model):
     
     def save(self):
         db.session.commit()
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)

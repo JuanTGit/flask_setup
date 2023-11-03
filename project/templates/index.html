@@ -18,6 +18,7 @@
                 <h5 class="card-title">{{ product.name }}</h5>
                 <p class="card-text">${{ product.price }}</p>
                 <a href="{{ url_for('product_info', prod_id=product.id) }}" class="btn btn-primary">More Info</a>
+                <a href="{{ url_for('product_edit', prod_id=product.id) }}" class="btn btn-secondary">Edit</a>
                 </div>
             </div>
         </div>
@@ -37,6 +38,7 @@
                 <h5 class="card-title">{{ product.name }}</h5>
                 <p class="card-text">${{ product.price }}</p>
                 <a href="{{ url_for('product_info', prod_id=product.id) }}" class="btn btn-primary">More Info</a>
+                <a href="{{ url_for('product_edit', prod_id=product.id) }}" class="btn btn-secondary">Edit</a>
                 </div>
             </div>
         </div>

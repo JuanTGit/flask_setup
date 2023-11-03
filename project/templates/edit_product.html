@@ -52,6 +52,29 @@
                 </div>
                 <div class="col-12">
                     {{ form.submit(class='btn btn-outline-primary w-75') }}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger w-75 mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        Delete Product
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Delete Item?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            This action cannot be undone. Are you sure you want to delete {{ product.name }}?
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a href="{{ url_for('delete_product', prod_id=product.id) }}" class="btn btn-danger">Yes, Delete</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

@@ -100,5 +100,15 @@ def product_edit(prod_id):
 
         product.save()
 
-
     return render_template('edit_product.html', product=product, form=form)
+
+@app.route('/product/<prod_id>/delete')
+def delete_product(prod_id):
+    product = Product.query.get_or_404(prod_id)
+    product.delete()
+    flash(f'{product.name} has been deleted', 'danger')
+    return redirect(url_for('index'))
+
+@app.route('/product/create')
+def new_product():
+    return render_template('new_product.html')
