@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    is_admin = db.Column(db.Boolean, default=False)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -45,6 +46,10 @@ class Product(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
+
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
@@ -54,7 +59,6 @@ class Category(db.Model):
 
     def __repr__(self):
         return f"<Category|{self.name}>"
-
 
 
     
