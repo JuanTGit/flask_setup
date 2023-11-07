@@ -15,11 +15,15 @@ from flask_login import LoginManager
 app = Flask(__name__)
 app.config.from_object(Config)
 
-db = SQLAlchemy(app)
+db = SQLAlchemy()
+db.init_app(app)
 migrate = Migrate(app, db)
+
 login = LoginManager(app)
 login.login_view = 'login'
 login.login_message_category = 'primary'
+
+# app.register_blueprint(auth, url_prefix='/auth')
 
 # We import routes here because It has to be deployed after our flask app
 from . import routes, models
