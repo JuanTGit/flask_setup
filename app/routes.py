@@ -1,10 +1,10 @@
 # Imports flask app from our project __init__ module, so we can set our routes
-from project import app
+from app import app
 # Used for loading in our templates from html files
 from flask import render_template, redirect, url_for, flash
 # Forms for users to input data
-from project.forms import RegisterForm, LoginForm, ProductUpdate
-from project.models import User, Product, Category
+from app.forms import RegisterForm, LoginForm, ProductUpdate
+from app.models import User, Product, Category
 from flask_login import login_user, logout_user, login_required
 
 @app.route('/')

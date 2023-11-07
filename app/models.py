@@ -1,5 +1,5 @@
 # The models in for our back-end database for us to parse.
-from project import db, login
+from app import db, login
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
