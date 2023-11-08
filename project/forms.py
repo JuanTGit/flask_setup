@@ -21,3 +21,4 @@ class ProductUpdate(FlaskForm):
     price = StringField('Price', validators=[DataRequired()])
     category = SelectField('Category')
     submit = SubmitField('Update Product')
+    create = SubmitField('Create Product')

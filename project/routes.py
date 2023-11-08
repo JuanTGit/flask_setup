@@ -5,7 +5,7 @@ from flask import render_template, redirect, url_for, flash
 # Forms for users to input data
 from project.forms import RegisterForm, LoginForm, ProductUpdate
 from project.models import User, Product, Category
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 @app.route('/')
 def index():
@@ -83,11 +83,15 @@ def product_info(prod_id):
     return render_template('product.html', product=product)
 
 @app.route('/product/<prod_id>/edit', methods=['GET', 'POST'])
+@login_required
 def product_edit(prod_id):
     form = ProductUpdate()
     form.category.choices = [(c.id, c.name) for c in Category.query.all()]
     product = Product.query.get_or_404(prod_id)
     if form.validate_on_submit():
+        if not current_user.is_admin:
+            flash("You don't have permissions to do that.", "danger")
+            return redirect(url_for('index'))
         name = form.name.data
         image_url = form.image_url.data
         price = form.price.data
@@ -99,13 +103,18 @@ def product_edit(prod_id):
         product.category_id = category
 
         product.save()
+        flash(f'Successfully Updated { product.name }!', 'success')
 
     return render_template('edit_product.html', product=product, form=form)
 
 @app.route('/product/create', methods=['GET', 'POST'])
+@login_required
 def new_product():
     form = ProductUpdate()
     form.category.choices = [(c.id, c.name) for c in Category.query.all()]
+    if not current_user.is_admin:
+        flash("You don't have permissions to do that.", "danger")
+        return redirect(url_for('index'))
     if form.validate_on_submit():
         name = form.name.data
         price = form.price.data
@@ -119,14 +128,19 @@ def new_product():
         new_product.category_id = category
 
         new_product.create()
-        flash('')
+        flash(f'{new_product.name} has been created successfully!', 'success')
+        return redirect(url_for('index'))
 
 
 
     return render_template('new_product.html', form=form)
 
 @app.route('/product/<prod_id>/delete')
+@login_required
 def delete_product(prod_id):
+    if not current_user.is_admin:
+        flash("You don't have permissions to do that.", "danger")
+        return redirect(url_for('index'))
     product = Product.query.get_or_404(prod_id)
     product.delete()
     flash(f'{product.name} has been deleted', 'danger')

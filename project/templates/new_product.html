@@ -1,32 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="text-center m-5">To Do x.x</h1>
-<div class="col-6">
+<h1 class="text-center m-5">Create New Product</h1>
+<div class="col-12 text-center">
     <form action="" method="post">
         {{ form.csrf_token }}
         <div class="form-group">
             <div class="col-12 mb-3">
-                <fieldset class="w-75">
-                    {{ form.name.label }}
+                {{ form.name.label }}
+                <fieldset class="w-50 mx-auto d-flex justify-content-center align-items-center">
                     {{ form.name(class='form-control', placeholder='Product name', value=name) }}
                 </fieldset>
             </div>
             <div class="col-12 mb-3">
-                <fieldset class="w-75">
-                    {{ form.image_url.label }}
+                {{ form.image_url.label }}
+                <fieldset class="w-50 mx-auto d-flex justify-content-center align-items-center">
                     {{ form.image_url(class='form-control', placeholder='image_url', value=image_url) }}
                 </fieldset>
             </div>
             <div class="col-12 mb-3">
-                <fieldset class="w-75">
-                    {{ form.price.label }}
+                {{ form.price.label }}
+                <fieldset class="w-50 mx-auto d-flex justify-content-center align-items-center">
                     {{ form.price(class='form-control', placeholder='Price', value=price) }}
                 </fieldset>
             </div>
             <div class="col-12 mb-3">
-                <fieldset class="w-75">
-                    {{ form.category.label }}
+                {{ form.category.label }}
+                <fieldset class="w-50 mx-auto d-flex justify-content-center align-items-center">
                     <select class="form-control" name="category">
                         {% for category in form.category.choices %}
                             {% if category[0] == category_id %}
@@ -38,7 +38,7 @@
                     </select>
                 </fieldset>
             </div>
-            {{ form.submit(class='btn btn-outline-primary w-75') }}
+            {{ form.create(class='btn btn-outline-primary w-50') }}
         </div>
     </form>
 </div>
