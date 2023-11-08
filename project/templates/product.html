@@ -3,11 +3,11 @@
 {% block content %}
 <div class="row mt-5">
     <!-- Display Product -->
-    <div class="col-2">
+    <!-- <div class="col-2">
         <img src="{{ product.image_url }}" class="img-thumbnail rounded mx-auto d-block" alt="">
         <img src="{{ product.image_url }}" class="img-thumbnail rounded mx-auto d-block" alt="">
-    </div>
-    <div class="col-5">
+    </div> -->
+    <div class="col-lg-6 col-md-3">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -31,14 +31,14 @@
           </div>
     </div>
     <!-- Product Description -->
-    <div class="col-5">
-        <h1 class="text-left m-5">{{ product.name }}</h1>
-        <div class="div m-5">
+    <div class="col-lg-6 col-md-3">
+        <h1 class="text-left">{{ product.name }}</h1>
+        <div class="m-5">
             {{ product.name }} description...
-            <br>
-            <br>
-            <button type="button" class="btn btn-primary btn-lg w-100">Add To Cart</button>
-
+            {{ product.price }}
+        </div>
+        <div class="col-12">
+          <button type="button" class="btn btn-primary btn-lg w-100">Add To Cart</button>
         </div>
     </div>
 </div>
