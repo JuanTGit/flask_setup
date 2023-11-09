@@ -18,8 +18,13 @@ class User(db.Model, UserMixin):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        # kwargs['password'] finds the keyword 'password' passed in kwargs and uses the value as it's paramater. example password=pass123, pass123 is passed in
         self.password = generate_password_hash(kwargs['password'])
         db.session.add(self)
+        db.session.commit()
+
+    def save(self, new_password):
+        self.password = generate_password_hash(new_password)
         db.session.commit()
     
     def __repr__(self):

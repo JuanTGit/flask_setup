@@ -15,6 +15,13 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
+class UpdateProfile(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    new_password = PasswordField('New Password', validators=[DataRequired()])
+    confirm_pass = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('new_password')])
+    submit = SubmitField('Update Pasword')
+    
+
 class ProductUpdate(FlaskForm):
     name = StringField('Product Name', validators=[DataRequired()])
     image_url = StringField('Image URL', validators=[DataRequired()])

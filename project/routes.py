@@ -3,9 +3,10 @@ from project import app
 # Used for loading in our templates from html files
 from flask import render_template, redirect, url_for, flash
 # Forms for users to input data
-from project.forms import RegisterForm, LoginForm, ProductUpdate
+from project.forms import RegisterForm, LoginForm, ProductUpdate, UpdateProfile
 from project.models import User, Product, Category
 from flask_login import login_user, logout_user, login_required, current_user
+from markupsafe import escape
 
 @app.route('/')
 def index():
@@ -47,6 +48,29 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
+@app.route('/profile/<username>', methods=['GET', 'POST'])
+@login_required
+def profile(username):
+    user_profile = User.query.filter_by(username=username).first()
+    form = UpdateProfile()
+    if form.validate_on_submit():
+        current_pass = form.password.data
+        new_password = form.new_password.data
+
+        if user_profile.check_password(current_pass) and new_password == form.confirm_pass.data:
+            user_profile.save(new_password)
+            flash('Password changed successfully', 'success')
+            return redirect(url_for('profile', username=username))
+        elif new_password != form.confirm_pass.data:
+            flash('Passwords do not match.', 'warning')
+            return redirect(url_for('profile', username=username))
+        else:
+            flash('Current password is incorrect.', 'warning')
+            return redirect(url_for('profile', username=username))
+        
+    return render_template('profile.html', user_profile=user_profile, form=form)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -65,6 +89,8 @@ def login():
         
 
     return render_template('login.html', form=form)
+
+
 
 @app.route('/logout')
 def logout():
@@ -104,6 +130,7 @@ def product_edit(prod_id):
 
         product.save()
         flash(f'Successfully Updated { product.name }!', 'success')
+        return redirect(url_for('product_edit', prod_id=prod_id))
 
     return render_template('edit_product.html', product=product, form=form)
 
@@ -128,8 +155,9 @@ def new_product():
         new_product.category_id = category
 
         new_product.create()
+
         flash(f'{new_product.name} has been created successfully!', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('product_info', prod_id=new_product.id))
 
 
 
