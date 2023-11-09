@@ -2,10 +2,11 @@
 
 {% block content %}
 <h1 class="d-flex justify-content-center m-5">Update Product</h1>
+<!-- Product card -->
 <div class="row d-flex justify-content-center">
-    <div class="col-3">
+    <div class="col-12 col-sm-6 col-md-4">
         <div class="card">
-            <img src="{{ product.image_url }}" class="card-img-top" style="width: 19rem;" alt="{{ product.name }}">
+            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
             <!-- style="width: 300px; height: 337px; object-fit: cover;" -->
             <div class="card-body">
             <h5 class="card-title">{{ product.name }}</h5>
@@ -14,7 +15,8 @@
             </div>
         </div>
     </div>
-    <div class="col-6 text-center">
+    <!-- Update product form -->
+    <div class="col-12 col-sm-6 col-md-4 text-center">
             <form action="" method="post">
                 {{ form.csrf_token }}
                 <div class="form-group">
@@ -50,11 +52,13 @@
                             </select>
                         </fieldset>
                     </div>
-                    <div class="col-12 text-center">
-                        {{ form.submit(class='btn btn-outline-primary w-75') }}
+
+
+                    <div class="col-12 text-center mb-3">
+                        {{ form.submit(class='btn btn-primary w-50') }}
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-danger w-75 mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                            Delete Product
+                        <button type="button" class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            Delete
                         </button>
                         
                         <!-- Modal -->
