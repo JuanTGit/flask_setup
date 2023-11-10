@@ -14,13 +14,13 @@
 					<a class="nav-link" href="{{ url_for('login') }}">Login</a>
 				</li>
 				{% else %}
+
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						{{ current_user.username.capitalize() }}
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<li><a class="dropdown-item" href="{{ url_for('profile', username=current_user.username) }}">Profile</a></li>
-						<li><a class="dropdown-item" href="#">Cart</a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
 					</ul>
@@ -31,6 +31,9 @@
 					<a class="nav-link" href="{{ url_for('new_product') }}">Create product</a>
 				</li>
 				{% endif %}
+				<li class="nav-item">
+					<a href="{{ url_for('view_cart') }}" class="nav-link bi bi-cart"> Cart</a>
+				</li>
 			</ul>
 			<form class="d-flex">
 				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
