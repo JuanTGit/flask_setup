@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block image %}
+
+<div class="d-flex justify-content-center container-xl overflow-hidden">
+    <img src="https://cdn.pixabay.com/photo/2016/05/26/13/51/dog-1417208_1280.png" class="img-lg" alt="...">
+    <div class="text-on-image text-center">
+        <h1 class="display-4 fs-3 m-4">Make game night easy</h1>
+        <h4 class="display-4 fs-6 fw-light m-3 text-nowrap">Just a few clicks away</h4>
+        <a href="{{ url_for('index') }}" class="btn btn-success btn-md mt-4"><strong>View our plans<strong></a>
+        <div id="list-example" class="list-group mt-4">
+            <a class="list-item-action bi bi-chevron-double-down" href="#list-item-1"></a>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    @media (max-width: 425px) {
+        .img-lg {
+            width: 200%; /* Adjust the percentage as needed */
+        }
+    }
+    @media (min-width: 426px) {
+        .img-lg {
+            max-width: 100%;
+        }
+    }
+    .container-xl {
+            position: relative;
+        }
+
+        .text-on-image {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        .btn-on-image {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-4 mb-4 fs-3" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" tabindex="0" id="list-item-1">Why GameKnight?</h1>
+<div class="row">
+    <div class="col-12 col-md-3 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+    </div>
+    <div class="col-12 col-md-3 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+    </div>
+    <div class="col-12 col-md-3 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+    </div>
+    <div class="col-12 col-md-3 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock %}

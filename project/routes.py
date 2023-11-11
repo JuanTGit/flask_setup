@@ -8,13 +8,19 @@ from project.models import User, Product, Category, Cart, CartItem
 from flask_login import login_user, logout_user, login_required, current_user
 from markupsafe import escape
 
+
 @app.route('/')
+def start():
+    return render_template('start.html')
+
+@app.route('/index')
 def index():
     # function takes in a template as first arg, and **kwargs
     products = Product.query.all()
     # Sort our products by id
     sorted_products = sorted(products, key=lambda x: x.id)
     return render_template('index.html', products=sorted_products)
+
 
 # Get for user to recieve data from server, and post for user to submit data from server
 @app.route('/register', methods=['GET', 'POST'])
@@ -181,7 +187,7 @@ def add_to_cart(prod_id):
     if product:
         cart = Cart.query.filter_by(user_id=current_user.id).first()
         if not cart:
-            cart = Cart(user_id=current_user.id)
+            cart = Cart(user_id=current_user.id, user_name=current_user.name)
             db.session.add(cart)
             db.session.commit()
 

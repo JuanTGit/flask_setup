@@ -74,10 +74,6 @@ class Cart(db.Model):
 
     def __repr__(self):
         return f"<Cart|ID: {self.id}, User: {self.user_id}>"
-    
-    def add_cart(self):
-        db.session.add(self)
-        db.session.commit
 
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -89,12 +85,6 @@ class CartItem(db.Model):
 
     def __repr__(self):
         return f"<CartItem|ID: {self.id}, Cart: {self.cart_id}, Product: {self.product_id}, Quantity: {self.quantity}>"
-    
-    def add_item(self):
-        db.session.add(self)
-        db.session.commit
-
-
     
 """
 CREATE USER
