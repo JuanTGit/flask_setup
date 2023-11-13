@@ -187,7 +187,7 @@ def add_to_cart(prod_id):
     if product:
         cart = Cart.query.filter_by(user_id=current_user.id).first()
         if not cart:
-            cart = Cart(user_id=current_user.id, user_name=current_user.name)
+            cart = Cart(user_id=current_user.id)
             db.session.add(cart)
             db.session.commit()
 
