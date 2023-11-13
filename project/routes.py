@@ -190,12 +190,21 @@ def add_to_cart(prod_id):
             cart = Cart(user_id=current_user.id)
             db.session.add(cart)
             db.session.commit()
+        
+        # Check if the product is already in the cart
+        cart_item = CartItem.query.filter_by(cart_id=cart.id, product_id=product.id).first()
 
-        cart_item = CartItem(cart_id=cart.id, product_id=product.id)
-        db.session.add(cart_item)
+        if cart_item:
+            # If the product is already in the cart, update the quantity
+            cart_item.quantity += 1
+            flash('Quantity updated in the cart successfully!', 'success')
+        else:
+            # If the product is not in the cart, add a new item
+            cart_item = CartItem(cart_id=cart.id, product_id=product.id)
+            db.session.add(cart_item)
+            flash('Product added to the cart successfully!', 'success')
+
         db.session.commit()
-        flash('Product added to the cart successfully!', 'success')
-    
     else:
         flash('Product not found!', 'danger')
 

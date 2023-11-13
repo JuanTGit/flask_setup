@@ -69,7 +69,7 @@ class Category(db.Model):
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    datecreated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     cart_items = db.relationship('CartItem', backref='cart', lazy=True)
 
     def __repr__(self):
