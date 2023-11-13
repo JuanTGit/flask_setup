@@ -2,13 +2,15 @@
 
 {% block image %}
 
-<div class="d-flex justify-content-center container-xl overflow-hidden">
-    <img src="{{ url_for('static', filename='images/banner.jpg') }}" class="img-lg" alt="...">
+<div class="d-flex justify-content-center overflow-hidden" id="container-xl">
+    <img src="{{ url_for('static', filename='images/gate.jpg') }}" class="img-lg" alt="...">
     <div class="text-on-image text-center text-white">
         <h1 class="display-4 fs-1 mt-4 text-nowrap">Make game night</h1>
         <h1 class="display-4 fs-1">EASY</h1>
         <h4 class="display-4 fs-6 fw-light m-3 text-nowrap">Just a few clicks away</h4>
-        <a href="{{ url_for('index') }}" class="btn btn-primary btn-md mt-4"><strong>View our plans<strong></a>
+    </div>
+    <div class="btn-on-image text-center">
+        <a href="{{ url_for('index') }}" class="btn btn-primary btn-md mt-4 w-100"><strong>View our plans<strong></a>
         <div id="list-example" class="list-group mt-4">
             <a class="scroll-btn list-item-action bi bi-chevron-double-down btn bg-light btn-outline-circle" href="#list-item-1"></a>
         </div>
@@ -17,17 +19,7 @@
 
 
 <style>
-    @media (max-width: 425px) {
-        .img-lg {
-            width: 200%; /* Adjust the percentage as needed */
-        }
-    }
-    @media (min-width: 426px) {
-        .img-lg {
-            max-width: 100%;
-        }
-    }
-    .container-xl {
+    #container-xl {
             position: relative;
         }
 
@@ -40,14 +32,14 @@
         }
         .btn-on-image {
             position: absolute;
-            top: 70%;
+            top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 1;
         }
         .scroll-btn {
             position: absolute;
-            top: 120%;
+            top: 120%; /* Adjust the percentage as needed */
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 1;
@@ -62,6 +54,40 @@
             align-items: center;
             justify-content: center;
         }
+    @media (max-width: 425px) {
+        .img-lg {
+            width: 270%; /* Adjust the percentage as needed */
+        }
+        .btn-on-image {
+            top: 67%;
+        }
+        .scroll-btn {
+            top: 140%;
+        }
+    }
+    @media (min-width: 426px) and (max-width: 1024px) {
+        .img-lg {
+            max-width: 150%;
+        }
+        .scroll-btn {
+            top: 165%;
+        }
+        .btn-on-image {
+            top: 70%;
+        }
+    }
+    @media (min-width: 1025px) {
+        .img-lg{
+            max-width: 200%;
+        }
+        .scroll-btn {
+            top: 300%;
+        }
+        .btn-on-image {
+            top: 60%;
+            width: 15%;
+        }
+    }
 </style>
 {% endblock %}
 
