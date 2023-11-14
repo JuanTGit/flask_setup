@@ -1,0 +1,70 @@
+#container-xl {
+    position: relative;
+}
+
+    .text-on-image {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+    .btn-on-image {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+    .scroll-btn {
+        position: absolute;
+        top: 120%; /* Adjust the percentage as needed */
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+    .btn-outline-circle {
+        width: 2.8rem; /* Set the desired size */
+        height: 2.8rem; /* Set the desired size */
+        border-radius: 50%;
+        border: 2px solid #0d6efd; /* Set the desired color */
+        color: #0d6efd; /* Set the desired color */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+@media (max-width: 425px) {
+    .img-lg {
+        width: 270%; /* Adjust the percentage as needed */
+    }
+    .btn-on-image {
+        top: 67%;
+    }
+    .scroll-btn {
+        top: 140%;
+    }
+}
+@media (min-width: 426px) and (max-width: 1024px) {
+    .img-lg {
+        max-width: 150%;
+    }
+    .scroll-btn {
+        top: 165%;
+    }
+    .btn-on-image {
+        top: 70%;
+    }
+}
+@media (min-width: 1025px) {
+    .img-lg{
+        max-width: 200%;
+    }
+    .scroll-btn {
+        top: 300%;
+    }
+    .btn-on-image {
+        top: 60%;
+        width: 15%;
+    }
+}

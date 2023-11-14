@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block image %}
+
+<div class="d-flex justify-content-center overflow-hidden" id="container-xl">
+    <img src="{{ url_for('static', filename='images/gate.jpg') }}" class="img-lg" alt="...">
+    <div class="text-on-image text-center text-white">
+        <h1 class="display-4 fs-1 mt-4 text-nowrap">Make game night</h1>
+        <h1 class="display-4 fs-1">EASY</h1>
+        <h4 class="display-4 fs-6 fw-light m-3 text-nowrap">Just a few clicks away</h4>
+    </div>
+    <div class="btn-on-image text-center">
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-md mt-4 w-100"><strong>View our plans<strong></a>
+        <div id="list-example" class="list-group mt-4">
+            <a class="scroll-btn list-item-action bi bi-chevron-double-down btn bg-light btn-outline-circle" href="#list-item-1"></a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-4 mb-4 fs-3" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" tabindex="0" id="list-item-1">Why GameKnight?</h1>
+<div class="row">
+    <div class="col-12 col-md-3 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <img src="https://images.pexels.com/photos/1373100/pexels-photo-1373100.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Games delivered montly!</p>
+            </div>
+          </div>
+    </div>
+    <div class="col-12 col-md-3 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <img src="https://images.pexels.com/photos/1373100/pexels-photo-1373100.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Games delivered montly!</p>
+            </div>
+          </div>
+    </div>
+    <div class="col-12 col-md-3 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <img src="https://images.pexels.com/photos/1373100/pexels-photo-1373100.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Games delivered montly!</p>
+            </div>
+          </div>
+    </div>
+    <div class="col-12 col-md-3 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <img src="https://images.pexels.com/photos/1373100/pexels-photo-1373100.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Games delivered montly!</p>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="d-flex justify-content-center m-5">Update Product</h1>
+<!-- Product card -->
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="card">
+            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+            <!-- style="width: 300px; height: 337px; object-fit: cover;" -->
+            <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">${{ product.price }}</p>
+            <p class="card-text">{{ product.category.name }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Update product form -->
+    <div class="col-12 col-sm-6 col-md-4 text-center">
+            <form action="" method="post">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    <div class="col-12 mb-3">
+                        {{ form.name.label }}
+                        <fieldset class="w-75 mx-auto d-flex justify-content-center align-items-center">
+                            {{ form.name(class='form-control', placeholder='Product name', value=product.name) }}
+                        </fieldset>
+                    </div>
+                    <div class="col-12 mb-3">
+                        {{ form.image_url.label }}
+                        <fieldset class="w-75 mx-auto d-flex justify-content-center align-items-center">
+                            {{ form.image_url(class='form-control', placeholder='image_url', value=product.image_url) }}
+                        </fieldset>
+                    </div>
+                    <div class="col-12 mb-3">
+                        {{ form.price.label }}
+                        <fieldset class="w-75 mx-auto d-flex justify-content-center align-items-center">
+                            {{ form.price(class='form-control', placeholder='Price', value=product.price) }}
+                        </fieldset>
+                    </div>
+                    <div class="col-12 mb-3">
+                        {{ form.category.label }}
+                        <fieldset class="w-75 mx-auto d-flex justify-content-center align-items-center">
+                            <select class="form-control" name="category">
+                                {% for category in form.category.choices %}
+                                    {% if category[0] == product.category_id %}
+                                        <option value="{{ category[0] }}" selected>{{ category[1] }}</option>
+                                    {% else %}
+                                        <option value="{{ category[0] }}">{{ category[1] }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </fieldset>
+                    </div>
+
+
+                    <div class="col-12 text-center mb-3">
+                        {{ form.submit(class='btn btn-primary w-50') }}
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            Delete
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel">Delete Item?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                This action cannot be undone. Are you sure you want to delete {{ product.name }}?
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="{{ url_for('products.delete_product', prod_id=product.id) }}" class="btn btn-danger">Yes, Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
