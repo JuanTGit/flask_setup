@@ -3,8 +3,6 @@ from .forms import RegisterForm, LoginForm, UpdateProfile
 from flask_login import login_user, logout_user, login_required
 from .models import User
 
-
-
 auth = Blueprint('auth', __name__)
 
 # Get for user to recieve data from server, and post for user to submit data from server
@@ -19,7 +17,7 @@ def register():
 
         if password != form.confirm_pass.data:
             flash('Passwords do not match', 'warning')
-            return render_template('register.html', form=form)
+            return render_template('register.html', form=form, email=email, username=username)
 
         # Check if user exists
         user_exists = User.query.filter((User.username == username)|(User.email == email)).all()
@@ -38,6 +36,7 @@ def register():
         flash(f'Thank you for registering {username}', 'primary')
         return redirect(url_for('auth.login'))
     return render_template('register.html', form=form)
+
 
 @auth.route('/profile/<username>', methods=['GET', 'POST'])
 @login_required
@@ -73,14 +72,14 @@ def login():
 
         if not user or not user.check_password(password):
             flash('Username or Password is incorrect.', 'danger')
-            return redirect(url_for('auth.login'))
+            return render_template('login.html', form=form, username=username)
+        
         login_user(user)
         flash('You have succesfully logged in!', 'success')
         return redirect(url_for('main.index'))
         
 
     return render_template('login.html', form=form)
-
 
 
 @auth.route('/logout')

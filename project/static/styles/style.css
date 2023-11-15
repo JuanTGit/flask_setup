@@ -34,7 +34,7 @@
         justify-content: center;
     }
 
-@media (max-width: 425px) {
+@media (max-width: 430px) {
     .img-lg {
         width: 270%; /* Adjust the percentage as needed */
     }
@@ -45,7 +45,7 @@
         top: 140%;
     }
 }
-@media (min-width: 426px) and (max-width: 1024px) {
+@media (min-width: 431px) and (max-width: 1024px) {
     .img-lg {
         max-width: 150%;
     }
