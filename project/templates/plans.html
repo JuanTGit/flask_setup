@@ -1,8 +1,39 @@
 {% extends 'base.html' %}
 
-{% include 'plansnav.html' %}
-
 {% block content %}
-<div class="row">
+<div class="row d-flex justify-content-center m-5">
+    <div class="col-12 col-md-8 border">
+        <h1 class="text-center">Select Plan</h1>
+    </div>
+</div>
+<div class="row d-flex justify-content-center m-3">
+    <div class="col-12 col-md-4 d-flex justify-content-start">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4 d-flex justify-content-end m-1">
+        <h1 class="text-center">Total Price</h1>
+    </div>
+</div>
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-4">
+        <button class="btn btn-primary w-100" type="button">Select this plan</button>
+    </div>
 </div>
 {% endblock %}
