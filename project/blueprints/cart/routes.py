@@ -6,6 +6,7 @@ from project.blueprints.products.models import Product
 
 cart = Blueprint('cart', __name__)
 
+# Route to add products to cart
 @cart.route('/add_to_cart/<int:prod_id>')
 @login_required
 def add_to_cart(prod_id):
@@ -36,6 +37,7 @@ def add_to_cart(prod_id):
 
     return redirect(url_for('main.index'))
 
+# Route to view cart
 @cart.route('/view_cart')
 @login_required
 def view_cart():
