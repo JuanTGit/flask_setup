@@ -30,8 +30,10 @@ from project.blueprints.auth.routes import auth
 from project.blueprints.cart.routes import cart
 from project.blueprints.products.routes import products
 from project.blueprints.main.routes import main
+from project.blueprints.api.routes import api
 
 app.register_blueprint(auth)
 app.register_blueprint(cart)
 app.register_blueprint(products)
 app.register_blueprint(main)
+app.register_blueprint(api)

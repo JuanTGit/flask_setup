@@ -22,6 +22,14 @@ class Product(db.Model):
     def create(self):
         db.session.add(self)
         db.session.commit()
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'prod_name': self.name,
+            'price': self.price,
+            'image': self.image_url
+        }
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
