@@ -1,19 +1,31 @@
 from flask import Blueprint, jsonify, request
 from project.blueprints.auth.models import User
 from project.blueprints.products.models import Product
+from .auth import basic_auth
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
+# Get token
+@api.route('/token', methods=['POST'])
+@basic_auth.login_required
+def get_token():
+    user = basic_auth.current_user()
+    token = user.get_token()
+    return jsonify({'token': token})
+
+# Get all users
 @api.route('/users')
 def get_users():
     users = User.query.all()
     return jsonify([u.to_dict() for u in users])
 
+# Get user by id
 @api.route('/users/<id>')
 def get_user(id):
     user = User.query.get_or_404(id)
     return jsonify(user.to_dict())
 
+# Get all products
 @api.route('/products')
 def get_products():
     products = Product.query.all()
