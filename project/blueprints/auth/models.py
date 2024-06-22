@@ -1,7 +1,7 @@
 import os
 import base64
 from project import db, login
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -45,7 +45,7 @@ class User(db.Model, UserMixin):
         }
     
     def get_token(self, expires_in=3600):
-        now = datetime.now(timezone.utc)
+        now = datetime.utcnow()
         if self.token and self.token_expiration > now + timedelta(minutes=1):
              return self.token
         self.token = base64.b64encode(os.urandom(24)).decode('utf-8')

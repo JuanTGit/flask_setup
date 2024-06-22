@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from project.blueprints.auth.models import User
 from project.blueprints.products.models import Product
-from .auth import basic_auth
+from .auth import basic_auth, token_auth
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -15,6 +15,7 @@ def get_token():
 
 # Get all users
 @api.route('/users')
+# @token_auth.login_required
 def get_users():
     users = User.query.all()
     return jsonify([u.to_dict() for u in users])
@@ -62,3 +63,13 @@ def create_user():
 
 # Update User
 
+@api.route('/users/<id>', methods=['PUT'])
+@token_auth.login_required
+def update_user(id):
+    pass
+
+# Delete User
+@api.route('/users/<id>', methods=['DELETE'])
+@token_auth.login_required
+def delete_user(id):
+    pass
