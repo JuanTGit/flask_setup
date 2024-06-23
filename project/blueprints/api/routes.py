@@ -63,13 +63,22 @@ def create_user():
 
 # Update User
 
-@api.route('/users/<id>', methods=['PUT'])
+@api.route('/users/<int:id>', methods=['PUT'])
 @token_auth.login_required
 def update_user(id):
-    pass
+    current_user = token_auth.current_user()
+    if current_user.id != id:
+        return jsonify({'error': 'You do not have access to update this user'}), 403
+    user = User.query.get_or_404(id)
+    data = request.json
 
 # Delete User
-@api.route('/users/<id>', methods=['DELETE'])
+@api.route('/users/<int:id>', methods=['DELETE'])
 @token_auth.login_required
 def delete_user(id):
-    pass
+    current_user = token_auth.current_user()
+    if current_user.id != id:
+        return jsonify({'error': 'You do not have access to delete this user'}), 403
+    user_to_delete = User.query.get_or_404(id)
+    user_to_delete.delete()
+    return jsonify({}), 204

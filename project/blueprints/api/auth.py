@@ -10,7 +10,7 @@ def verify(username, password):
     user = User.query.filter_by(username=username).first()
     if user and user.check_password(password):
         return user
-    
+
 @token_auth.verify_token
 def verify(token):
     user = User.query.filter_by(token=token).first()
