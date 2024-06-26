@@ -41,7 +41,8 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'admin': self.is_admin,
-            'date_created': self.date_created
+            'date_created': self.date_created,
+            'email': self.email
         }
     
     def get_token(self, expires_in=3600):
@@ -59,6 +60,8 @@ class User(db.Model, UserMixin):
 
     def update(self, data):
         for field in data:
+            if field not in {'username', 'email', 'password', 'is_admin', 'first_name'}:
+                continue
             if field == 'password':
                 setattr(self, field, generate_password_hash(data[field]))
             else:

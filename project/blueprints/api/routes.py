@@ -32,34 +32,38 @@ def get_products():
     products = Product.query.all()
     return jsonify([p.to_dict() for p in products])
 
+# Get product by id
+@api.route('/products/<id>')
+def get_product(id):
+    product = Product.query.get_or_404(id)
+    return jsonify(product.to_dict())
+
 # Create, Retreive, Update, Delete
 
-# Create a User
+# Create User
 @api.route('/users', methods=['POST'])
 def create_user():
     data = request.json
-    # Validate Data
     for field in ["username", "email", "password", "confirm_password"]:
         if field not in data:
             return jsonify({'error': f"You are missing {field} field"}), 400
-    if data["password"] != data["confirm_password"]:
-        return jsonify({'error': f"Passwords do not match"}), 400
-    
+        if data["password"] != data["confirm_password"]:
+            return jsonify({'error': f"Passwords do not match"}), 400
+        
     # Grab data from the request body
     username = data["username"]
     email = data["email"]
     password = data["password"]
-    confirm_password = data["confirm_password"]
 
-    # Check if username or email already exist in db
-    user_exists = User.query.filter((User.username == username)|(User.email == email)).all()
+    user_exists = User.query.filter((User.username==username)|(User.email==email)).all()
     if user_exists:
         return jsonify({'error': f'User with username {username} or email {email} already exists.'}), 400
     
-    # Create new user
     new_user = User(username=username, email=email, password=password)
 
     return jsonify(new_user.to_dict())
+    
+
 
 # Update User
 
@@ -71,6 +75,8 @@ def update_user(id):
         return jsonify({'error': 'You do not have access to update this user'}), 403
     user = User.query.get_or_404(id)
     data = request.json
+    user.update(data)
+    return jsonify(user.to_dict())
 
 # Delete User
 @api.route('/users/<int:id>', methods=['DELETE'])
