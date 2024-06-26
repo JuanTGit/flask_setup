@@ -88,3 +88,21 @@ def delete_user(id):
     user_to_delete = User.query.get_or_404(id)
     user_to_delete.delete()
     return jsonify({}), 204
+
+# CRUD Products
+
+# Update Product
+@api.route('/products/<int:id>', methods=['PUT'])
+@token_auth.login_required
+def update_product(id):
+    product = Product.query.get_or_404(id)
+    data = request.json
+    product.update(data)
+    return jsonify(product.to_dict())
+
+@api.route('/products/<int:id>', methods=['DELETE'])
+@token_auth.login_required
+def delete_product(id):
+    product_to_delete = User.query.get_or_404(id)
+    product_to_delete.delete()
+    return jsonify({}), 204

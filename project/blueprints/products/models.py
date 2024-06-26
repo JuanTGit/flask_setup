@@ -30,6 +30,14 @@ class Product(db.Model):
             'price': self.price,
             'image': self.image_url
         }
+    
+    def update(self, data):
+        for field in data:
+            if field not in {'name', 'price', 'image_url', 'category_id'}:
+                continue
+            else:
+                setattr(self, field, data[field])
+        db.session.commit()
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
