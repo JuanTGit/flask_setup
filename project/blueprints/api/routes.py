@@ -95,6 +95,9 @@ def delete_user(id):
 @api.route('/products/<int:id>', methods=['PUT'])
 @token_auth.login_required
 def update_product(id):
+    user = token_auth.current_user()
+    if not user.is_admin:
+        return jsonify({'error': 'You do not have permission to update products'}), 403
     product = Product.query.get_or_404(id)
     data = request.json
     product.update(data)
@@ -103,6 +106,9 @@ def update_product(id):
 @api.route('/products/<int:id>', methods=['DELETE'])
 @token_auth.login_required
 def delete_product(id):
+    user = token_auth.current_user()
+    if not user.is_admin:
+        return jsonify({'error': 'You do not have permission to delete products'}), 403
     product_to_delete = User.query.get_or_404(id)
     product_to_delete.delete()
     return jsonify({}), 204

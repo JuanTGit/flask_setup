@@ -28,15 +28,16 @@ class Product(db.Model):
             'id': self.id,
             'prod_name': self.name,
             'price': self.price,
-            'image': self.image_url
+            'image': self.image_url,
+            'date_created': self.date_created,
+            'category_id': self.category_id
         }
     
     def update(self, data):
         for field in data:
             if field not in {'name', 'price', 'image_url', 'category_id'}:
                 continue
-            else:
-                setattr(self, field, data[field])
+            setattr(self, field, data[field])
         db.session.commit()
 
 class Category(db.Model):
