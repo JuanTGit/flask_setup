@@ -11,9 +11,11 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
 
 db = SQLAlchemy()
 db.init_app(app)
@@ -23,6 +25,7 @@ login = LoginManager(app)
 login.login_view = 'auth.login'
 login.login_message_category = 'primary'
 
+CORS(app)
 # app.register_blueprint(auth, url_prefix='/auth')
 
 # We import routes here because It has to be deployed after our flask app
