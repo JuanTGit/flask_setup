@@ -11,7 +11,7 @@ api = Blueprint('api', __name__, url_prefix='/api')
 def get_token():
     user = basic_auth.current_user()
     token = user.get_token()
-    return jsonify({'token': token})
+    return jsonify({'token': token, 'userId': user.id, 'username': user.username})
 
 # Get all users
 @api.route('/users')
@@ -21,7 +21,7 @@ def get_users():
     return jsonify([u.to_dict() for u in users])
 
 # Get user by id
-@api.route('/users/<id>')
+@api.route('/users/<int:id>')
 def get_user(id):
     user = User.query.get_or_404(id)
     return jsonify(user.to_dict())
@@ -75,8 +75,10 @@ def update_user(id):
         return jsonify({'error': 'You do not have access to update this user'}), 403
     user = User.query.get_or_404(id)
     data = request.json
+    if user.check_password(data["currPass"]) == False:
+        return jsonify({'error': 'Current Password is incorrect'}), 403
     user.update(data)
-    return jsonify(user.to_dict())
+    return jsonify({'message': 'Password updated!'}), 200
 
 # Delete User
 @api.route('/users/<int:id>', methods=['DELETE'])
@@ -87,7 +89,7 @@ def delete_user(id):
         return jsonify({'error': 'You do not have access to delete this user'}), 403
     user_to_delete = User.query.get_or_404(id)
     user_to_delete.delete()
-    return jsonify({}), 204
+    return jsonify({'message': 'User deleted successfully'}), 200
 
 # CRUD Products
 
@@ -109,6 +111,6 @@ def delete_product(id):
     user = token_auth.current_user()
     if not user.is_admin:
         return jsonify({'error': 'You do not have permission to delete products'}), 403
-    product_to_delete = User.query.get_or_404(id)
+    product_to_delete = Product.query.get_or_404(id)
     product_to_delete.delete()
-    return jsonify({}), 204
+    return jsonify({'message': 'Product deleted successfully'}), 200

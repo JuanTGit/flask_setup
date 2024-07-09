@@ -26,7 +26,7 @@ class Product(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'prod_name': self.name,
+            'name': self.name,
             'price': self.price,
             'image': self.image_url,
             'date_created': self.date_created,
