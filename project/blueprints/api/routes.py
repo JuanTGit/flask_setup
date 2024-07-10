@@ -11,7 +11,7 @@ api = Blueprint('api', __name__, url_prefix='/api')
 def get_token():
     user = basic_auth.current_user()
     token = user.get_token()
-    return jsonify({'token': token, 'userId': user.id, 'username': user.username})
+    return jsonify({'token': token, 'userId': user.id, 'username': user.username, 'is_admin': user.is_admin})
 
 # Get all users
 @api.route('/users')
