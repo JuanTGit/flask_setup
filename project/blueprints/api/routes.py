@@ -93,6 +93,25 @@ def delete_user(id):
 
 # CRUD Products
 
+# Create Product
+@api.route('/products', methods=['POST'])
+@token_auth.login_required
+def create_product():
+    user = token_auth.current_user()
+    if not user.is_admin:
+        return jsonify({'error': 'You do not have access'}), 403
+    data = request.json
+    
+    name = data["name"]
+    price = data["price"]
+    image = data["image"]
+    category_id = data["category_id"]
+
+    new_product = Product(name=name, price=price, image_url=image, category_id=category_id)
+    new_product.create()
+    return jsonify(new_product.to_dict())
+    
+
 # Update Product
 @api.route('/products/<int:id>', methods=['PUT'])
 @token_auth.login_required
