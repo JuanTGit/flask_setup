@@ -85,7 +85,7 @@ def update_user(id):
 @token_auth.login_required
 def delete_user(id):
     current_user = token_auth.current_user()
-    if current_user.id != id:
+    if current_user.id != id and not current_user.is_admin:
         return jsonify({'error': 'You do not have access to delete this user'}), 403
     user_to_delete = User.query.get_or_404(id)
     user_to_delete.delete()
