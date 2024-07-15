@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
+from project import db
 from project.blueprints.auth.models import User
 from project.blueprints.products.models import Product
+from project.blueprints.cart.models import Cart, CartItem
 from .auth import basic_auth, token_auth
 
 api = Blueprint('api', __name__, url_prefix='/api')
@@ -133,3 +135,60 @@ def delete_product(id):
     product_to_delete = Product.query.get_or_404(id)
     product_to_delete.delete()
     return jsonify({'message': 'Product deleted successfully'}), 200
+
+# Cart
+@api.route('/add-to-cart', methods=['POST'])
+@token_auth.login_required
+def add_to_cart():
+    current_user = token_auth.current_user()
+    data = request.json
+    product_id = data["product_id"]
+    quantity = data.get('quantity', 1)
+
+    cart = Cart.query.filter_by(user_id=current_user.id).first()
+    if not cart:
+        cart = Cart(user_id=current_user.id())
+        db.session.add(cart)
+        db.session.commit()
+    
+    cart_item = CartItem.query.filter_by(cart_id=cart.id, product_id=product_id).first()
+    if cart_item:
+        cart_item.quantity += quantity
+    else:
+        cart_item = CartItem(cart_id=cart.id, product_id=product_id, quantity=quantity)
+        db.session.add(cart_item)
+    
+    db.session.commit()
+    cart.update_total()
+
+    return jsonify({'message': 'Item added to cart', 'total': cart.total})
+
+@api.route('/view-cart/<int:cart_id>')
+@token_auth.login_required
+def view_cart(cart_id):
+    user = token_auth.current_user()
+
+    cart = Cart.query.get_or_404(cart_id)
+    if not cart:
+        return jsonify({'message': 'Cart not found'})
+    
+    cart_items = CartItem.query.filter_by(cart_id=cart.id).all()
+    items_list = []
+
+    for item in cart_items:
+        product = Product.query.get_or_404(item.product_id)
+        items_list.append({
+            'product_id': item.product_id,
+            'product_name': product.name,
+            'quantity': item.quantity,
+            'price': product.price,
+            'total_price': item.quatity * product.price
+
+        })
+    
+    return jsonify({
+        'cart_id': cart.id,
+        'user_id': cart.user_id,
+        'date_created': cart.datecreated,
+        'items': items_list
+        })

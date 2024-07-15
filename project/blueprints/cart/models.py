@@ -9,6 +9,14 @@ class Cart(db.Model):
 
     def __repr__(self):
         return f"<Cart|ID: {self.id}, User: {self.user_id}>"
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update_total(self):
+        self.total = sum(item.product.price * item.quantity for item in self.cart_items)
+        db.session.commit()
 
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -20,3 +28,7 @@ class CartItem(db.Model):
 
     def __repr__(self):
         return f"<CartItem|ID: {self.id}, Cart: {self.cart_id}, Product: {self.product_id}, Quantity: {self.quantity}>"
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
