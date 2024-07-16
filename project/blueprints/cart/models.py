@@ -14,6 +14,29 @@ class Cart(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def add_item(self, product_id, quantity=1):
+        existing_item = CartItem.query.filter_by(cart_id=self.id, product_id=product_id).first()
+        if existing_item:
+            existing_item.quantity += quantity
+        else:
+            new_item = CartItem(cart_id=self.id, product_id=product_id, quantity=quantity)
+            db.session.add(new_item)
+        db.session.commit()
+
+    def remove_item(self, product_id, quantity=1):
+        existing_item = CartItem.query.filter_by(cart_id=self.id, product_id=product_id).first()
+        if existing_item:
+            if existing_item.quantity > quantity:
+                existing_item.quantity -= quantity
+            else:
+                db.session.delete(existing_item)
+            db.session.commit()
+
+    def clear_cart(self):
+        for item in self.cart_items:
+            db.session.delete(item)
+        db.session.commit()
+
     def update_total(self):
         self.total = sum(item.product.price * item.quantity for item in self.cart_items)
         db.session.commit()

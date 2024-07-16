@@ -147,7 +147,7 @@ def add_to_cart():
 
     cart = Cart.query.filter_by(user_id=current_user.id).first()
     if not cart:
-        cart = Cart(user_id=current_user.id())
+        cart = Cart(user_id=current_user.id)
         db.session.add(cart)
         db.session.commit()
     
@@ -163,12 +163,12 @@ def add_to_cart():
 
     return jsonify({'message': 'Item added to cart', 'total': cart.total})
 
-@api.route('/view-cart/<int:cart_id>')
+@api.route('/view-cart', methods=['GET'])
 @token_auth.login_required
-def view_cart(cart_id):
+def view_cart():
     user = token_auth.current_user()
 
-    cart = Cart.query.get_or_404(cart_id)
+    cart = Cart.query.filter_by(user_id=user.id).first()
     if not cart:
         return jsonify({'message': 'Cart not found'})
     
@@ -182,8 +182,7 @@ def view_cart(cart_id):
             'product_name': product.name,
             'quantity': item.quantity,
             'price': product.price,
-            'total_price': item.quatity * product.price
-
+            'total_price': item.quantity * product.price
         })
     
     return jsonify({
