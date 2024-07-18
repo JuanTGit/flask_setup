@@ -174,6 +174,7 @@ def view_cart():
     
     cart_items = CartItem.query.filter_by(cart_id=cart.id).all()
     items_list = []
+    cart_total = cart.update_total()
 
     for item in cart_items:
         product = Product.query.get_or_404(item.product_id)
@@ -189,5 +190,6 @@ def view_cart():
         'cart_id': cart.id,
         'user_id': cart.user_id,
         'date_created': cart.datecreated,
-        'items': items_list
+        'items': items_list,
+        'cart_total': cart_total
         })

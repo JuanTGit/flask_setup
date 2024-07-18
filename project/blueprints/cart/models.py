@@ -40,6 +40,7 @@ class Cart(db.Model):
     def update_total(self):
         self.total = sum(item.product.price * item.quantity for item in self.cart_items)
         db.session.commit()
+        return self.total
 
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
